@@ -29,7 +29,7 @@ namespace practice
 
             for (int i = 0; i < array.Length; i++)
             {
-                array[i] = random.Next(-101, 101); 
+                array[i] = random.Next(-10001, 10001); 
             }
 
            
@@ -75,35 +75,6 @@ namespace practice
             }
 
             MessageBox.Show("Массив отсортирован и записан в файл.");
-        }
-
-
-        private void Swap(ref int a, ref int b)
-        {
-            (a, b) = (b, a);
-        }
-
-
-        private int[] ShellSort(int[] array)
-        {
-
-            var d = array.Length / 2;
-            while (d >= 1)
-            {
-                for (var i = d; i < array.Length; i++)
-                {
-                    var j = i;
-                    while ((j >= d) && (array[j - d] > array[j]))
-                    {
-                        Swap(ref array[j], ref array[j - d]);
-                        j = j - d;
-                    }
-                }
-
-                d = d / 2;
-            }
-
-            return array;
         }
 
         private void label1_Click(object sender, EventArgs e)
