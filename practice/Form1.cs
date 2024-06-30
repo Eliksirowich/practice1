@@ -1,0 +1,114 @@
+using System;
+using System.IO;
+using System.Windows.Forms;
+
+namespace practice
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            
+            Random random = new Random();
+            int[] array = new int[100]; 
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = random.Next(-101, 101); 
+            }
+
+           
+            string filePath = "array.txt"; 
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                foreach (int number in array)
+                {
+                    writer.WriteLine(number);
+                }
+            }
+
+            MessageBox.Show("Файл с неотсортированным массивом создан.");
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            
+            string filePath = "array.txt";
+            if (!File.Exists(filePath))
+            {
+                MessageBox.Show("Файл с массивом не найден.");
+                return;
+            }
+
+            string[] lines = File.ReadAllLines(filePath);
+            int[] array = new int[lines.Length];
+            for (int i = 0; i < lines.Length; i++)
+            {
+                array[i] = int.Parse(lines[i]);
+            }
+
+         
+            array = ShellSort(array);
+
+            string sortedFilePath = "sorted_array.txt";
+            using (StreamWriter writer = new StreamWriter(sortedFilePath))
+            {
+                foreach (int number in array)
+                {
+                    writer.WriteLine(number);
+                }
+            }
+
+            MessageBox.Show("Массив отсортирован и записан в файл.");
+        }
+
+
+        private void Swap(ref int a, ref int b)
+        {
+            (a, b) = (b, a);
+        }
+
+
+        private int[] ShellSort(int[] array)
+        {
+
+            var d = array.Length / 2;
+            while (d >= 1)
+            {
+                for (var i = d; i < array.Length; i++)
+                {
+                    var j = i;
+                    while ((j >= d) && (array[j - d] > array[j]))
+                    {
+                        Swap(ref array[j], ref array[j - d]);
+                        j = j - d;
+                    }
+                }
+
+                d = d / 2;
+            }
+
+            return array;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
