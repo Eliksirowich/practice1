@@ -1,7 +1,8 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
-
+using System.Diagnostics;
 namespace practice
 {
     public partial class Form1 : Form
@@ -62,9 +63,10 @@ namespace practice
                 array[i] = int.Parse(lines[i]);
             }
 
-         
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             array = ShellSort(array);
-
+            stopwatch.Stop();
             string sortedFilePath = "sorted_array.txt";
             using (StreamWriter writer = new StreamWriter(sortedFilePath))
             {
@@ -74,7 +76,7 @@ namespace practice
                 }
             }
 
-            MessageBox.Show("Массив отсортирован и записан в файл.");
+            MessageBox.Show($"Массив отсортирован и записан в файл. Время сортировки: {stopwatch.Elapsed.TotalSeconds} секунд.");
         }
 
         private void label1_Click(object sender, EventArgs e)
